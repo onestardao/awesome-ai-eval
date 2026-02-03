@@ -4,7 +4,7 @@
 
 <img src="./assets/robot-shades.svg" align="right" width="150" alt="Awesome AI Eval robot logo" />
 
-A curated list of tools, frameworks, benchmarks, and observability platforms for evaluating LLMs, RAG pipelines, and autonomous agents to minimize hallucinations & evaluate practical performance in real production environments.
+Evaluation is how you know if your AI actually works (and not hallucinating). This list covers the frameworks, benchmarks, datasets, and platforms you need to test LLMs, debug RAG pipelines, and monitor autonomous agents in production, organized by what you're trying to measure and how.
 
 ## Contents
 
@@ -12,6 +12,7 @@ A curated list of tools, frameworks, benchmarks, and observability platforms for
   - [Evaluators and Test Harnesses](#evaluators-and-test-harnesses)
   - [RAG and Retrieval](#rag-and-retrieval)
   - [Prompt Evaluation & Safety](#prompt-evaluation--safety)
+  - [Red Teaming & Adversarial Testing](#red-teaming--adversarial-testing)
   - [Datasets and Methodology](#datasets-and-methodology)
 - [Platforms](#platforms)
   - [Open Source Platforms](#open-source-platforms)
@@ -19,8 +20,11 @@ A curated list of tools, frameworks, benchmarks, and observability platforms for
   - [Cloud Platforms](#cloud-platforms)
 - [Benchmarks](#benchmarks)
   - [General](#general)
+  - [Long Context](#long-context)
   - [Domain](#domain)
   - [Agent](#agent)
+  - [Reasoning](#reasoning)
+  - [Multimodal](#multimodal)
   - [Safety](#safety)
 - [Leaderboards](#leaderboards)
 - [Resources](#resources)
@@ -31,18 +35,20 @@ A curated list of tools, frameworks, benchmarks, and observability platforms for
 
 ---
 
-
 ## Tools
 
 ### Evaluators and Test Harnesses
 
 #### Core Frameworks
 
+- [**Aleph Alpha Eval Framework**](https://github.com/Aleph-Alpha-Research/eval-framework) ![](https://img.shields.io/github/stars/Aleph-Alpha-Research/eval-framework?style=social&label=github.com) - Production-ready evaluation framework with 90+ pre-loaded benchmarks for reasoning, coding, and safety.
 - [**Anthropic Model Evals**](https://github.com/anthropics/evals) ![](https://img.shields.io/github/stars/anthropics/evals?style=social&label=github.com) - Anthropic's evaluation suite for safety, capabilities, and alignment testing of language models.
+- [**Bloom**](https://github.com/safety-research/bloom) ![](https://img.shields.io/github/stars/safety-research/bloom?style=social&label=github.com) - Anthropic's open-source agentic framework for automated behavioral evaluations of frontier AI models.
 - [**ColossalEval**](https://github.com/hpcaitech/ColossalAI/tree/main/applications/ColossalEval) ![](https://img.shields.io/github/stars/hpcaitech/ColossalAI?style=social&label=github.com) - Unified pipeline for classic metrics plus GPT-assisted scoring across public datasets.
 - [**DeepEval**](https://github.com/confident-ai/deepeval) ![](https://img.shields.io/github/stars/confident-ai/deepeval?style=social&label=github.com) - Python unit-test style metrics for hallucination, relevance, toxicity, and bias.
 - [**Hugging Face lighteval**](https://github.com/huggingface/lighteval) ![](https://img.shields.io/github/stars/huggingface/lighteval?style=social&label=github.com) - Toolkit powering HF leaderboards with 1k+ tasks and pluggable metrics.
 - [**Inspect AI**](https://github.com/UKGovernmentBEIS/inspect_ai) ![](https://img.shields.io/github/stars/UKGovernmentBEIS/inspect_ai?style=social&label=github.com) - UK AI Safety Institute framework for scripted eval plans, tool calls, and model-graded rubrics.
+- [**lmms-eval**](https://github.com/EvolvingLMMs-Lab/lmms-eval) ![](https://img.shields.io/github/stars/EvolvingLMMs-Lab/lmms-eval?style=social&label=github.com) - One-for-all multimodal evaluation toolkit supporting 100+ tasks across text, image, video, and audio.
 - [**MLflow Evaluators**](https://github.com/mlflow/mlflow) ![](https://img.shields.io/github/stars/mlflow/mlflow?style=social&label=github.com) - Eval API that logs LLM scores next to classic experiment tracking runs.
 - [**OpenAI Evals**](https://github.com/openai/evals) ![](https://img.shields.io/github/stars/openai/evals?style=social&label=github.com) - Reference harness plus registry spanning reasoning, extraction, and safety evals.
 - [**OpenCompass**](https://github.com/open-compass/opencompass) ![](https://img.shields.io/github/stars/open-compass/opencompass?style=social&label=github.com) - Research harness with CascadeEvaluator, CompassRank syncing, and LLM-as-judge utilities.
@@ -55,8 +61,11 @@ A curated list of tools, frameworks, benchmarks, and observability platforms for
 
 #### Application and Agent Harnesses
 
+- [**Athina AI**](https://www.athina.ai/) ![](https://img.shields.io/badge/athina.ai-active-blue?style=social) - SOC-2 compliant LLM evaluation and monitoring platform with 50+ preset evaluations and VPC deployment.
 - [**Braintrust**](https://www.braintrust.dev/) ![](https://img.shields.io/badge/braintrust.dev-active-blue?style=social) - Hosted evaluation workspace with CI-style regression tests, agent sandboxes, and token cost tracking.
 - [**LangSmith**](https://smith.langchain.com/) ![](https://img.shields.io/badge/smith.langchain.com-active-blue?style=social) - Hosted tracing plus datasets, batched evals, and regression gating for LangChain apps.
+- [**Parea AI**](https://www.parea.ai/) ![](https://img.shields.io/badge/parea.ai-active-blue?style=social) - Developer tools for evaluating, testing, and monitoring LLM-powered applications with actionable insights.
+- [**Patronus AI**](https://www.patronus.ai/) ![](https://img.shields.io/badge/patronus.ai-active-blue?style=social) - Evaluation platform with multimodal LLM-as-judge, hallucination detection, and industry benchmarks like FinanceBench.
 - [**W&B Prompt Registry**](https://docs.wandb.ai/weave/guides/core-types/evaluations) ![](https://img.shields.io/badge/docs.wandb.ai-active-blue?style=social) - Prompt evaluation templates with reproducible scoring and reviews.
 
 ### RAG and Retrieval
@@ -65,9 +74,10 @@ A curated list of tools, frameworks, benchmarks, and observability platforms for
 
 - [**EvalScope RAG**](https://evalscope.readthedocs.io/en/latest/blog/RAG/RAG_Evaluation.html) ![](https://img.shields.io/badge/evalscope.readthedocs.io-active-blue?style=social) - Guides and templates that extend Ragas-style metrics with domain rubrics.
 - [**LlamaIndex Evaluation**](https://docs.llamaindex.ai/en/stable/module_guides/evaluating/) ![](https://img.shields.io/badge/docs.llamaindex.ai-active-blue?style=social) - Modules for replaying queries, scoring retrievers, and comparing query engines.
-- [**Open RAG Eval**](https://github.com/vectara/open-rag-eval) ![](https://img.shields.io/github/stars/vectara/open-rag-eval?style=social&label=github.com) - Vectara harness with pluggable datasets for comparing retrievers and prompts.
+- [**Open RAG Eval**](https://github.com/vectara/open-rag-eval) ![](https://img.shields.io/github/stars/vectara/open-rag-eval?style=social&label=github.com) - Vectara harness with UMBRELA and AutoNuggetizer metrics that don't require golden answers.
 - [**RAGEval**](https://github.com/OpenBMB/RAGEval) ![](https://img.shields.io/github/stars/OpenBMB/RAGEval?style=social&label=github.com) - Framework that auto-generates corpora, questions, and RAG rubrics for completeness.
 - [**R-Eval**](https://github.com/THU-KEG/R-Eval) ![](https://img.shields.io/github/stars/THU-KEG/R-Eval?style=social&label=github.com) - Toolkit for robust RAG scoring aligned with the Evaluation of RAG survey taxonomy.
+- [**UltraRAG**](https://github.com/OpenBMB/UltraRAG) ![](https://img.shields.io/github/stars/OpenBMB/UltraRAG?style=social&label=github.com) - MCP-based RAG development framework with built-in evaluation workflows and multimodal support.
 
 #### Retrieval Benchmarks
 
@@ -78,6 +88,7 @@ A curated list of tools, frameworks, benchmarks, and observability platforms for
 #### RAG Datasets and Surveys
 
 - [**Awesome-RAG-Evaluation**](https://github.com/YHPeter/Awesome-RAG-Evaluation) ![](https://img.shields.io/github/stars/YHPeter/Awesome-RAG-Evaluation?style=social&label=github.com) - Curated catalog of RAG evaluation metrics, datasets, and leaderboards.
+- [**Awesome-RAG-Reasoning**](https://github.com/DavidZWZ/Awesome-RAG-Reasoning) ![](https://img.shields.io/github/stars/DavidZWZ/Awesome-RAG-Reasoning?style=social&label=github.com) - EMNLP 2025 collection of RAG + reasoning benchmarks, datasets, and implementations.
 - [**Comparing LLMs on Real-World Retrieval**](https://www.sh-reya.com/blog/needle-in-the-real-world/) ![](https://img.shields.io/badge/sh--reya.com-active-blue?style=social) - Empirical analysis of how language models perform on practical retrieval tasks.
 - [**RAG Evaluation Survey**](https://arxiv.org/abs/2405.07437) ![](https://img.shields.io/badge/arxiv.org-active-blue?style=social) - Comprehensive paper covering metrics, judgments, and open problems for RAG.
 - [**RAGTruth**](https://github.com/zhengzangw/RAGTruth) ![](https://img.shields.io/badge/github-archived-lightgray?style=social&logo=github) - Human-annotated dataset for measuring hallucinations and faithfulness in RAG answers.
@@ -90,6 +101,13 @@ A curated list of tools, frameworks, benchmarks, and observability platforms for
 - [**Lakera Guard**](https://www.lakera.ai/lakera-guard) ![](https://img.shields.io/badge/lakera.ai-active-blue?style=social) - Hosted prompt security platform with red-team datasets for jailbreak and injection testing.
 - [**PromptBench**](https://github.com/microsoft/promptbench) ![](https://img.shields.io/github/stars/microsoft/promptbench?style=social&label=github.com) - Benchmark suite for adversarial prompt stress tests across diverse tasks.
 - [**Red Teaming Handbook**](https://learn.microsoft.com/en-us/security/) ![](https://img.shields.io/badge/learn.microsoft.com-active-blue?style=social) - Microsoft playbook for adversarial prompt testing and mitigation patterns.
+
+### Red Teaming & Adversarial Testing
+
+- [**ARTKIT**](https://github.com/BCG-X-Official/artkit) ![](https://img.shields.io/github/stars/BCG-X-Official/artkit?style=social&label=github.com) - Automated multi-turn red teaming framework that simulates attacker-target interactions for jailbreak testing.
+- [**DeepTeam**](https://github.com/confident-ai/deepteam) ![](https://img.shields.io/github/stars/confident-ai/deepteam?style=social&label=github.com) - Open-source LLM red teaming framework testing for bias, data exposure, and prompt injection vulnerabilities.
+- [**Garak**](https://github.com/NVIDIA/garak) ![](https://img.shields.io/github/stars/NVIDIA/garak?style=social&label=github.com) - NVIDIA's adversarial testing toolkit with 100+ attack modules for prompt injection and data extraction.
+- [**PyRIT**](https://github.com/Azure/PyRIT) ![](https://img.shields.io/github/stars/Azure/PyRIT?style=social&label=github.com) - Microsoft's Python Risk Identification Toolkit for orchestrating LLM attack suites and red team automation.
 
 ### Datasets and Methodology
 
@@ -126,7 +144,6 @@ A curated list of tools, frameworks, benchmarks, and observability platforms for
 - [**VoltAgent**](https://github.com/VoltAgent/voltagent) ![](https://img.shields.io/github/stars/VoltAgent/voltagent?style=social&label=github.com) - TypeScript agent framework paired with VoltOps for trace inspection and regression testing.
 - [**Zeno**](https://zenoml.com/) ![](https://img.shields.io/badge/zenoml.com-active-blue?style=social) - Data-centric evaluation UI for slicing failures, comparing prompts, and debugging retrieval quality.
 
-  
 ### Hosted Platforms
 
 - [**ChatIntel**](https://chatintel.ai/) ![](https://img.shields.io/badge/chatintel.ai-active-blue?style=social) - Conversation analytics platform for evaluating chatbot quality, sentiment, and user satisfaction.
@@ -143,13 +160,12 @@ A curated list of tools, frameworks, benchmarks, and observability platforms for
 - [**PostHog LLM Analytics**](https://posthog.com/llm-analytics) ![](https://img.shields.io/badge/posthog.com-active-blue?style=social) - Product analytics toolkit extended to track custom LLM events and metrics.
 - [**PromptLayer**](https://www.promptlayer.com/) ![](https://img.shields.io/badge/promptlayer.com-active-blue?style=social) - Prompt engineering platform with version control, evaluation tracking, and team collaboration.
 
-
 ### Cloud Platforms
 
 - [**Amazon Bedrock Evaluations**](https://aws.amazon.com/bedrock/evaluations/) ![](https://img.shields.io/badge/aws.amazon.com-active-blue?style=social) - Managed service for scoring foundation models and RAG pipelines.
 - [**Amazon Bedrock Guardrails**](https://aws.amazon.com/bedrock/guardrails/) ![](https://img.shields.io/badge/aws.amazon.com-active-blue?style=social) - Safety layer that evaluates prompts and responses for policy compliance.
 - [**Azure AI Foundry Evaluations**](https://learn.microsoft.com/en-us/azure/ai-foundry/how-to/evaluate-generative-ai-app) ![](https://img.shields.io/badge/learn.microsoft.com-active-blue?style=social) - Evaluation flows and risk reports wired into Prompt Flow projects.
-- [**Vertex AI Generative AI Evaluation**](https://cloud.google.com/vertex-ai/generative-ai/docs/models/evaluation-overview) ![](https://img.shields.io/badge/cloud.google.com-active-blue?style=social) - Adaptive rubric-based evaluation for Google and third-party models.
+- [**Vertex AI Generative AI Evaluation**](https://cloud.google.com/vertex-ai/generative-ai/docs/models/evaluation-overview) ![](https://img.shields.io/badge/cloud.google.com-active-blue?style=social) - Adaptive rubric-based evaluation with agent assessment, LangChain/CrewAI support, and test-driven evaluation framework.
 
 ---
 
@@ -164,30 +180,64 @@ A curated list of tools, frameworks, benchmarks, and observability platforms for
 - [**LM Evaluation Harness**](https://github.com/EleutherAI/lm-evaluation-harness) ![](https://img.shields.io/github/stars/EleutherAI/lm-evaluation-harness?style=social&label=github.com) - Standard harness for scoring autoregressive models on dozens of tasks.
 - [**LLM-Uncertainty-Bench**](https://github.com/smartyfh/LLM-Uncertainty-Bench) ![](https://img.shields.io/github/stars/smartyfh/LLM-Uncertainty-Bench?style=social&label=github.com) - Adds uncertainty-aware scoring across QA, RC, inference, dialog, and summarization.
 - [**LLMBar**](https://github.com/princeton-nlp/LLMBar) ![](https://img.shields.io/github/stars/princeton-nlp/LLMBar?style=social&label=github.com) - Meta-eval testing whether LLM judges can spot instruction-following failures.
-- [**LV-Eval**](https://github.com/infinigence/LVEval) ![](https://img.shields.io/github/stars/infinigence/LVEval?style=social&label=github.com) - Long-context suite with five length tiers up to 256K tokens and distraction controls.
 - [**MMLU**](https://github.com/hendrycks/test) ![](https://img.shields.io/github/stars/hendrycks/test?style=social&label=github.com) - Massive multitask language understanding benchmark for academic and professional subjects.
 - [**MMLU-Pro**](https://github.com/TIGER-AI-Lab/MMLU-Pro) ![](https://img.shields.io/github/stars/TIGER-AI-Lab/MMLU-Pro?style=social&label=github.com) - Harder 10-choice extension focused on reasoning-rich, low-leakage questions.
 - [**PertEval**](https://github.com/aigc-apps/PertEval) ![](https://img.shields.io/github/stars/aigc-apps/PertEval?style=social&label=github.com) - Knowledge-invariant perturbations to debias multiple-choice accuracy inflation.
+- [**SimpleBench**](https://simplebench.ai/) ![](https://img.shields.io/badge/simplebench.ai-active-blue?style=social) - Fundamental reasoning benchmark where humans (83.7%) significantly outperform best AI models (62.4%).
+
+### Long Context
+
+- [**InfiniteBench**](https://github.com/OpenBMB/InfiniteBench) ![](https://img.shields.io/github/stars/OpenBMB/InfiniteBench?style=social&label=github.com) - First LLM benchmark with average data length surpassing 100K tokens across 12 tasks.
+- [**LongBench v2**](https://longbench2.github.io/) ![](https://img.shields.io/badge/longbench2.github.io-active-blue?style=social) - Long-context benchmark with 8k-2M word contexts and 503 challenging questions across six task categories.
+- [**LongGenBench**](https://arxiv.org/abs/2409.02076) ![](https://img.shields.io/badge/arxiv.org-active-blue?style=social) - ICLR 2025 benchmark evaluating 16K-32K token long-form text generation quality.
+- [**LV-Eval**](https://github.com/infinigence/LVEval) ![](https://img.shields.io/github/stars/infinigence/LVEval?style=social&label=github.com) - Long-context suite with five length tiers up to 256K tokens and distraction controls.
+- [**RULER**](https://github.com/NVIDIA/RULER) ![](https://img.shields.io/github/stars/NVIDIA/RULER?style=social&label=github.com) - NVIDIA's synthetic long-context benchmark with configurable sequence length and 13 tasks across 4 categories.
 
 ### Domain
 
+- [**FinanceBench**](https://www.patronus.ai/announcements/patronus-ai-launches-financebench-the-industrys-first-benchmark-for-llm-performance-on-financial-questions) ![](https://img.shields.io/badge/patronus.ai-active-blue?style=social) - Industry benchmark for LLM performance on financial questions and reasoning.
 - [**FinEval**](https://github.com/SUFE-AIFLM-Lab/FinEval) ![](https://img.shields.io/github/stars/SUFE-AIFLM-Lab/FinEval?style=social&label=github.com) - Chinese financial QA and reasoning benchmark across regulation, accounting, and markets.
-- [**LAiW**](https://github.com/Dai-shen/LAiW) ![](https://img.shields.io/github/stars/Dai-shen/LAiW?style=social&label=github.com) - Legal benchmark covering retrieval, foundation inference, and complex case applications in Chinese law.
 - [**HumanEval**](https://github.com/openai/human-eval) ![](https://img.shields.io/github/stars/openai/human-eval?style=social&label=github.com) - Unit-test-based benchmark for code synthesis and docstring reasoning.
+- [**LAiW**](https://github.com/Dai-shen/LAiW) ![](https://img.shields.io/github/stars/Dai-shen/LAiW?style=social&label=github.com) - Legal benchmark covering retrieval, foundation inference, and complex case applications in Chinese law.
 - [**MATH**](https://github.com/hendrycks/math) ![](https://img.shields.io/github/stars/hendrycks/math?style=social&label=github.com) - Competition-level math benchmark targeting multi-step symbolic reasoning.
 - [**MBPP**](https://github.com/google-research/google-research/tree/master/mbpp) ![](https://img.shields.io/github/stars/google-research/google-research?style=social&label=github.com) - Mostly Basic Programming Problems benchmark for small coding tasks.
+- [**MedHELM**](https://crfm.stanford.edu/helm/medhelm/latest/) ![](https://img.shields.io/badge/crfm.stanford.edu-active-blue?style=social) - Comprehensive medical LLM benchmark with 121 clinician-validated tasks and LLM-jury evaluation protocol.
 
 ### Agent
 
 - [**AgentBench**](https://github.com/THUDM/AgentBench) ![](https://img.shields.io/github/stars/THUDM/AgentBench?style=social&label=github.com) - Evaluates LLMs acting as agents across simulated domains like games and coding.
+- [**AstaBench**](https://allenai.org/blog/astabench) ![](https://img.shields.io/badge/allenai.org-active-blue?style=social) - AI2 benchmark for scientific research AI agents covering literature review, experiment replication, and data analysis.
+- [**BrowseComp**](https://openai.com/index/browsecomp/) ![](https://img.shields.io/badge/openai.com-active-blue?style=social) - OpenAI benchmark of 1,266 problems measuring AI agents' ability to find entangled information on the web.
+- [**ColBench**](https://arxiv.org/abs/2503.08452) ![](https://img.shields.io/badge/arxiv.org-active-blue?style=social) - Multi-turn benchmark evaluating LLMs as collaborative coding agents with simulated human partners.
+- [**Context-Bench**](https://www.letta.com/blog/context-bench) ![](https://img.shields.io/badge/letta.com-active-blue?style=social) - Letta's benchmark for evaluating AI agent context management and memory capabilities.
+- [**DPAI Arena**](https://blog.jetbrains.com/ai/2025/10/dpai-arena/) ![](https://img.shields.io/badge/jetbrains.com-active-blue?style=social) - JetBrains benchmark evaluating full multi-workflow, multi-language developer agents across the engineering lifecycle.
 - [**GAIA**](https://huggingface.co/datasets/gaia-benchmark/GAIA) ![](https://img.shields.io/badge/huggingface.co-active-blue?style=social) - Tool-use benchmark requiring grounded reasoning with live web access and planning.
 - [**MetaTool Tasks**](https://github.com/meta-llama/MetaTool) ![](https://img.shields.io/badge/github-archived-lightgray?style=social&logo=github) - Tool-calling benchmark and eval harness for agents built around LLaMA models.
 - [**SuperCLUE-Agent**](https://github.com/CLUEbenchmark/SuperCLUE-Agent) ![](https://img.shields.io/github/stars/CLUEbenchmark/SuperCLUE-Agent?style=social&label=github.com) - Chinese agent eval covering tool use, planning, long/short-term memory, and APIs.
+- [**SWE-bench**](https://github.com/SWE-bench/SWE-bench) ![](https://img.shields.io/github/stars/SWE-bench/SWE-bench?style=social&label=github.com) - Real-world GitHub issue resolution benchmark for coding agents.
+- [**SWE-bench Live**](https://swe-bench-live.github.io/) ![](https://img.shields.io/badge/swe--bench--live.github.io-active-blue?style=social) - Continuously updated benchmark with monthly refreshes for contamination-free evaluation.
+- [**SWE-bench Pro**](https://scale.com/leaderboard/swe_bench_pro_public) ![](https://img.shields.io/badge/scale.com-active-blue?style=social) - Enterprise-level coding benchmark with 1,865 problems across 41 repos requiring hours-to-days solutions.
+- [**Terminal-Bench**](https://arxiv.org/abs/2505.09876) ![](https://img.shields.io/badge/arxiv.org-active-blue?style=social) - Stanford/Laude benchmark evaluating AI agents operating in sandboxed command-line environments.
+
+### Reasoning
+
+- [**ARC-AGI-2**](https://arcprize.org/arc-agi/2/) ![](https://img.shields.io/badge/arcprize.org-active-blue?style=social) - Next-generation reasoning benchmark where pure LLMs score 0% but humans can solve every task.
+- [**JudgeBench**](https://arxiv.org/abs/2410.12784) ![](https://img.shields.io/badge/arxiv.org-active-blue?style=social) - ICLR 2025 benchmark for evaluating LLM-based judges on challenging response pairs across knowledge, reasoning, math, and coding.
+
+### Multimodal
+
+- [**MERLIM**](https://arxiv.org/abs/2312.02394) ![](https://img.shields.io/badge/arxiv.org-active-blue?style=social) - 300K+ image-question pairs with focus on detecting cross-modal hallucination and hidden hallucinations.
+- [**MME**](https://github.com/BradyFU/Awesome-Multimodal-Large-Language-Models) ![](https://img.shields.io/github/stars/BradyFU/Awesome-Multimodal-Large-Language-Models?style=social&label=github.com) - Comprehensive MLLM evaluation measuring perception and cognition across 14 subtasks.
+- [**MMMU-Pro**](https://mmmu-benchmark.github.io/) ![](https://img.shields.io/badge/mmmu--benchmark.github.io-active-blue?style=social) - Harder extension of MMMU benchmark for multimodal understanding with expert-level questions.
+- [**MMT-Bench**](https://github.com/OpenGVLab/MMT-Bench) ![](https://img.shields.io/github/stars/OpenGVLab/MMT-Bench?style=social&label=github.com) - 31K+ questions across image, text, video, and point cloud modalities with 162 subtasks.
+- [**Video-MME**](https://video-mme.github.io/) ![](https://img.shields.io/badge/video--mme.github.io-active-blue?style=social) - CVPR 2025 benchmark for comprehensive evaluation of multimodal LLMs in video analysis.
+- [**VisualToolBench**](https://github.com/showlab/VisualToolBench) ![](https://img.shields.io/github/stars/showlab/VisualToolBench?style=social&label=github.com) - First "think with image" benchmark evaluating MLLMs on tasks requiring active visual interaction.
 
 ### Safety
 
 - [**AdvBench**](https://github.com/llm-attacks/llm-attacks) ![](https://img.shields.io/github/stars/llm-attacks/llm-attacks?style=social&label=github.com) - Adversarial prompt benchmark for jailbreak and misuse resistance measurement.
 - [**BBQ**](https://github.com/nyu-mll/BBQ) ![](https://img.shields.io/github/stars/nyu-mll/BBQ?style=social&label=github.com) - Bias-sensitive QA sets measuring stereotype reliance and ambiguous cases.
+- [**SimpleSafetyTests**](https://www.patronus.ai/) ![](https://img.shields.io/badge/patronus.ai-active-blue?style=social) - Patronus AI safety benchmark for rapid safety evaluation of LLM applications.
 - [**ToxiGen**](https://github.com/microsoft/ToxiGen) ![](https://img.shields.io/github/stars/microsoft/ToxiGen?style=social&label=github.com) - Toxic language generation and classification benchmark for robustness checks.
 - [**TruthfulQA**](https://github.com/sylinrl/TruthfulQA) ![](https://img.shields.io/github/stars/sylinrl/TruthfulQA?style=social&label=github.com) - Measures factuality and hallucination propensity via adversarially written questions.
 
@@ -195,9 +245,12 @@ A curated list of tools, frameworks, benchmarks, and observability platforms for
 
 ## Leaderboards
 
+- [**ARC Prize Leaderboard**](https://arcprize.org/leaderboard) ![](https://img.shields.io/badge/arcprize.org-active-blue?style=social) - AGI reasoning leaderboard tracking ARC-AGI-2 performance across frontier models and open submissions.
 - [**CompassRank**](https://rank.opencompass.org.cn/home) ![](https://img.shields.io/badge/rank.opencompass.org.cn-active-blue?style=social) - OpenCompass leaderboard comparing frontier and research models across multi-domain suites.
 - [**LLM Agents Benchmark Collections**](https://llmbench.ai/) ![](https://img.shields.io/badge/llmbench.ai-active-blue?style=social) - Aggregated leaderboard comparing multi-agent safety and reliability suites.
+- [**LMArena**](https://lmarena.ai/) ![](https://img.shields.io/badge/lmarena.ai-active-blue?style=social) - Crowdsourced LLM comparison platform (formerly LMSYS Chatbot Arena) with 6M+ user votes for Elo ratings.
 - [**Open LLM Leaderboard**](https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard) ![](https://img.shields.io/badge/huggingface.co-active-blue?style=social) - Hugging Face benchmark board with IFEval, MMLU-Pro, GPQA, and more.
+- [**Open Medical-LLM Leaderboard**](https://huggingface.co/blog/leaderboard-medicalllm) ![](https://img.shields.io/badge/huggingface.co-active-blue?style=social) - Hugging Face leaderboard for medical domain LLM performance across healthcare benchmarks.
 - [**OpenAI Evals Registry**](https://github.com/openai/evals/tree/main/evals/elsuite) ![](https://img.shields.io/github/stars/openai/evals?style=social&label=github.com) - Community suites and scores covering accuracy, safety, and instruction following.
 - [**Scale SEAL Leaderboard**](https://scale.com/leaderboard) ![](https://img.shields.io/badge/scale.com-active-blue?style=social) - Expert-rated leaderboard covering reasoning, coding, and safety via SEAL evaluations.
 
@@ -218,8 +271,10 @@ A curated list of tools, frameworks, benchmarks, and observability platforms for
 - [**Evaluating RAG Systems**](https://hamel.dev/blog/posts/evals-faq/#how-should-i-approach-evaluating-my-rag-system) ![](https://img.shields.io/badge/hamel.dev-active-blue?style=social) - Practical guidance on RAG evaluation covering retrieval quality and generation assessment.
 - [**Field Guide to Rapidly Improving AI Products**](https://hamel.dev/blog/posts/field-guide/) ![](https://img.shields.io/badge/hamel.dev-active-blue?style=social) - Comprehensive guide on error analysis, data viewers, and systematic improvement from 30+ implementations.
 - [**Inspect AI Deep Dive**](https://hamel.dev/notes/llm/evals/inspect.html) ![](https://img.shields.io/badge/hamel.dev-active-blue?style=social) - Technical deep dive into Inspect AI framework with hands-on examples.
+- [**KDD 2025 Tutorial: Evaluation & Benchmarking of LLM Agents**](https://sap-samples.github.io/llm-agents-eval-tutorial/) ![](https://img.shields.io/badge/sap--samples.github.io-active-blue?style=social) - Academic tutorial covering LLM agent evaluation methodology and best practices.
 - [**LLM Evals FAQ**](https://hamel.dev/blog/posts/evals-faq/) ![](https://img.shields.io/badge/hamel.dev-active-blue?style=social) - Comprehensive FAQ with 45+ articles covering evaluation questions from practitioners.
 - [**LLM Evaluators Survey**](https://eugeneyan.com/writing/llm-evaluators/) ![](https://img.shields.io/badge/eugeneyan.com-active-blue?style=social) - Survey of LLM-as-judge use cases and approaches with practical implementation patterns.
+- [**LLM-as-a-Judge Survey**](https://arxiv.org/abs/2411.15594) ![](https://img.shields.io/badge/arxiv.org-active-blue?style=social) - Comprehensive 2025 survey on building reliable LLM-as-a-Judge systems with bias mitigation strategies.
 - [**LLM-as-a-Judge Guide**](https://hamel.dev/blog/posts/llm-judge/) ![](https://img.shields.io/badge/hamel.dev-active-blue?style=social) - In-depth guide on using LLMs as judges for automated evaluation with calibration tips.
 - [**Mastering LLMs Open Course**](https://parlance-labs.com/education/) ![](https://img.shields.io/badge/parlance--labs.com-active-blue?style=social) - Free 40+ hour course covering evals, RAG, and fine-tuning taught by 25+ industry practitioners.
 - [**Modern IR Evals For RAG**](https://hamel.dev/notes/llm/rag/p2-evals.html) ![](https://img.shields.io/badge/hamel.dev-active-blue?style=social) - Why traditional IR evals are insufficient for RAG, covering BEIR and modern approaches.
@@ -244,6 +299,7 @@ A curated list of tools, frameworks, benchmarks, and observability platforms for
 - [**Awesome-LLM-Eval**](https://github.com/onejune2018/Awesome-LLM-Eval) ![](https://img.shields.io/github/stars/onejune2018/Awesome-LLM-Eval?style=social&label=github.com) - Cross-lingual (Chinese) compendium of eval tooling, papers, datasets, and leaderboards.
 - [**Awesome LLMOps**](https://github.com/tensorchord/awesome-llmops) ![](https://img.shields.io/github/stars/tensorchord/awesome-llmops?style=social&label=github.com) - Curated tooling for training, deployment, and monitoring of LLM apps.
 - [**Awesome Machine Learning**](https://github.com/josephmisiti/awesome-machine-learning) ![](https://img.shields.io/github/stars/josephmisiti/awesome-machine-learning?style=social&label=github.com) - Language-specific ML resources that often host evaluation building blocks.
+- [**Awesome-Multimodal-Large-Language-Models**](https://github.com/BradyFU/Awesome-Multimodal-Large-Language-Models) ![](https://img.shields.io/github/stars/BradyFU/Awesome-Multimodal-Large-Language-Models?style=social&label=github.com) - Latest advances on multimodal LLMs including evaluation benchmarks and surveys.
 - [**Awesome RAG**](https://github.com/noworneverev/Awesome-RAG) ![](https://img.shields.io/github/stars/noworneverev/Awesome-RAG?style=social&label=github.com) - Broad coverage of retrieval-augmented generation techniques and tools.
 - [**Awesome Self-Hosted**](https://github.com/awesome-selfhosted/awesome-selfhosted) ![](https://img.shields.io/github/stars/awesome-selfhosted/awesome-selfhosted?style=social&label=github.com) - Massive catalog of self-hostable software, including observability stacks.
 - [**GenAI Notes**](https://github.com/eugeneyan/genai-notes) ![](https://img.shields.io/badge/github-archived-lightgray?style=social&logo=github) - Continuously updated notes and resources on GenAI systems, evaluation, and operations.
@@ -260,4 +316,4 @@ Released under the [CC0 1.0 Universal](LICENSE) license.
 
 Contributions are welcome—please read [CONTRIBUTING.md](CONTRIBUTING.md) for scope, entry rules, and the pull-request checklist before submitting updates.
 
-<a href="https://www.vvkmnn.xyz"><img src="https://github.githubassets.com/images/icons/emoji/unicode/270c.png" height="24" alt="✌️"></a> 
+<a href="https://www.vvkmnn.xyz"><img src="https://github.githubassets.com/images/icons/emoji/unicode/270c.png" height="24" alt="✌️"></a>
