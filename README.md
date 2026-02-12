@@ -31,7 +31,6 @@ Evaluation is how you know if your AI actually works (and not hallucinating). Th
   - [Guides & Training](#guides--training)
   - [Examples](#examples)
   - [Related Collections](#related-collections)
-- [Licensing](#licensing)
 
 ---
 
@@ -303,12 +302,6 @@ Evaluation is how you know if your AI actually works (and not hallucinating). Th
 - ![](https://img.shields.io/github/stars/noworneverev/Awesome-RAG?style=social&label=github.com) [**Awesome RAG**](https://github.com/noworneverev/Awesome-RAG) - Broad coverage of retrieval-augmented generation techniques and tools.
 - ![](https://img.shields.io/github/stars/awesome-selfhosted/awesome-selfhosted?style=social&label=github.com) [**Awesome Self-Hosted**](https://github.com/awesome-selfhosted/awesome-selfhosted) - Massive catalog of self-hostable software, including observability stacks.
 - ![](https://img.shields.io/badge/github-archived-lightgray?style=social&logo=github) [**GenAI Notes**](https://github.com/eugeneyan/genai-notes) - Continuously updated notes and resources on GenAI systems, evaluation, and operations.
-
----
-
-## Licensing
-
-Released under the [CC0 1.0 Universal](LICENSE) license.
 
 ---
 
